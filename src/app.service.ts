@@ -3,7 +3,7 @@ import firebase from "firebase/app"
 import "firebase/firestore"
 import { RegisterDto } from './dto/register.dto';
 import * as bcrypt from 'bcrypt';
-import { SignInLineDto } from './dto/signin.dto';
+import { SignInLineDto } from './dto/signin-line.dto';
 import * as jwt from 'jsonwebtoken';
 import { LineNotifyDto } from './dto/line-notify.dto';
 

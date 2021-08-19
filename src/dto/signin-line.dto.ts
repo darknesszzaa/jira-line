@@ -4,17 +4,17 @@ import { IsNotEmpty, IsString } from 'class-validator';
 export class SignInLineDto {
   @IsString()
   @IsNotEmpty()
-  @ApiProperty()
+  @ApiProperty({ example: 'anucha' })
   public readonly username: string;
 
   @IsString()
   @IsNotEmpty()
-  @ApiProperty()
+  @ApiProperty({ example: '1234' })
   public readonly password: string;
 
   @IsString()
   @IsNotEmpty()
-  @ApiProperty()
+  @ApiProperty({ example: 'xxxxxxxx' })
   public readonly lineId: string;
 
 }

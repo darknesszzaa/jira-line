@@ -4,12 +4,12 @@ import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 export class LineNotifyDto {
   @IsString()
   @IsNotEmpty()
-  @ApiProperty()
+  @ApiProperty({ example: 'ZPg3I4tOivnNPcL9UUdd' })
   public readonly userId: string;
 
   @IsNumber()
   @IsNotEmpty()
-  @ApiProperty()
+  @ApiProperty({ example: 0 })
   public readonly logTimeHours: number;
 
 }

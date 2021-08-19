@@ -3,7 +3,7 @@ import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { AppService } from './app.service';
 import { LineNotifyDto } from './dto/line-notify.dto';
 import { RegisterDto } from './dto/register.dto';
-import { SignInLineDto } from './dto/signin.dto';
+import { SignInLineDto } from './dto/signin-line.dto';
 import { UsersResponseDto } from './dto/users.response.dto';
 
 @Controller()
