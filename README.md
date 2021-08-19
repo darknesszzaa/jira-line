@@ -1,2 +1,1 @@
-# jira-line
-Jira Line Notify
+JIRA Line Notify
