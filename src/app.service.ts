@@ -23,6 +23,10 @@ export class AppService {
     firebase.initializeApp(firebaseConfig);
   }
 
+  getHello(): string {
+    return 'Hello World!!!';
+  }
+
 
   async getUsers(): Promise<any> {
 
@@ -84,7 +88,7 @@ export class AppService {
     let firestore = firebase.firestore();
 
     let users = await firestore.collection("users").doc(data.userId).get();
-    
+
     console.log(users.data())
 
     if (!users) {

@@ -8,6 +8,12 @@ import { SignInLineDto } from './dto/signin.dto';
 export class AppController {
   constructor(private readonly appService: AppService) { }
 
+  @Get()
+  getHello(): string {
+    return this.appService.getHello();
+  }
+
+
   @Get('users')
   getUsers(): Promise<any> {
     return this.appService.getUsers();
