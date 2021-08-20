@@ -4,8 +4,8 @@ import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 export class LineNotifyDto {
   @IsString()
   @IsNotEmpty()
-  @ApiProperty({ example: 'ZPg3I4tOivnNPcL9UUdd' })
-  public readonly userId: string;
+  @ApiProperty({ example: 'anucha.p@gmail.com' })
+  public readonly email: string;
 
   @IsNumber()
   @IsNotEmpty()

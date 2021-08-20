@@ -22,4 +22,10 @@ export class RegisterDto {
   @ApiProperty({ example: 'Prapphrom' })
   lastName: string;
 
+  @IsNumber()
+  @IsNotEmpty()
+  @ApiProperty({ example: 'anucha.p@gmail.com' })
+  email: string;
+
+
 }

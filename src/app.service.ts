@@ -52,6 +52,7 @@ export class AppService {
       password: data.password,
       firstName: data.firstName,
       lastName: data.lastName,
+      email: data.email
     });
     return true;
   }
@@ -82,9 +83,14 @@ export class AppService {
 
     let firestore = firebase.firestore();
 
-    let users = await firestore.collection("users").doc(data.userId).get();
+    let users = await firestore.collection("users").where("email", "==", data.email).get();
 
-    console.log(users.data())
+    let userData = users.docs.map((doc) => {
+      let res = doc.data();
+      res.id = doc.id;
+      return res;
+    })[0];
+    console.log(userData)
 
     if (!users) {
       throw new HttpException('User not found.', HttpStatus.NOT_FOUND);
