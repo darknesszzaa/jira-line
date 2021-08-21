@@ -3,7 +3,7 @@ function getBodySignIn(url, userId, replyToken) {
     replyToken: replyToken,
     messages: [{
       type: 'flex',
-      altText: 'Sigin In',
+      altText: 'Register',
       contents: {
         type: 'bubble',
         hero: {
@@ -24,7 +24,7 @@ function getBodySignIn(url, userId, replyToken) {
           },
           contents: [{
             type: 'text',
-            text: 'RV Health Monitoring',
+            text: 'RVPD Notify',
             size: 'xl',
             weight: 'bold',
             align: 'center'
@@ -43,8 +43,8 @@ function getBodySignIn(url, userId, replyToken) {
             color: '#3949ab',
             action: {
               type: 'uri',
-              label: 'Sign In',
-              uri: url + '/login-line/' + userId
+              label: 'Register',
+              uri: url + '/register/?lineid=' + userId
             }
           }
           ]
