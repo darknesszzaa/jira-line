@@ -169,7 +169,7 @@ export class AppService {
     })
 
     await firestore.collection("users").doc(data.email).update({
-      logTimeHours: 8
+      logTimeHours: data.logTimeHours
     })
       .then(() => {
         console.log("Document successfully updated!");
