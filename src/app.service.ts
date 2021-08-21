@@ -6,6 +6,9 @@ import * as bcrypt from 'bcrypt';
 import { SignInLineDto } from './dto/signin-line.dto';
 import * as jwt from 'jsonwebtoken';
 import { LineNotifyDto } from './dto/line-notify.dto';
+import { LineConnection } from './constants';
+const line = require('./utils/line');
+const lineBody = require('./utils/line-body');
 
 @Injectable()
 export class AppService {
@@ -38,18 +41,22 @@ export class AppService {
   async createUsers(data: RegisterDto): Promise<boolean> {
 
     let firestore = firebase.firestore()
-    const salt = bcrypt.genSaltSync(10);
-    data.password = await bcrypt.hashSync(data.password, salt);
 
-    let users = await firestore.collection("users").where("username", "==", data.username).get();
+    const re = /^[a-zA-Z0-9._-]+@rvconnex.com$/;
+    let isEmailValid = re.test(String(data.email).toLowerCase());
+
+    if (!isEmailValid) {
+      throw new HttpException('Email\'s invalid.', HttpStatus.BAD_REQUEST);
+    }
+
+    let users = await firestore.collection("users").where("email", "==", data.email).get();
     let userData = users.docs.map(doc => doc.data());
     if (userData.length > 0) {
-      throw new HttpException('Username\'s already exist.', HttpStatus.CONFLICT);
+      throw new HttpException('Email\'s already exist.', HttpStatus.CONFLICT);
     }
 
     firestore.collection("users").add({
-      username: data.username,
-      password: data.password,
+      lineId: data.lineId,
       firstName: data.firstName,
       lastName: data.lastName,
       email: data.email
@@ -90,12 +97,20 @@ export class AppService {
       res.id = doc.id;
       return res;
     })[0];
-    console.log(userData)
 
-    if (!users) {
+    if (!userData) {
       throw new HttpException('User not found.', HttpStatus.NOT_FOUND);
     }
 
+    return true;
+  }
+
+  async lineWebHook(data): Promise<any> {
+
+    console.log(data)
+    const replyToken = data.events[0].replyToken || 'no replyToken';
+    const body = lineBody.getBodySignIn(LineConnection.URL_API, data.events[0].source.userId, replyToken);
+    line.sendReplyBodyToLine(replyToken, body);
 
     return true;
   }

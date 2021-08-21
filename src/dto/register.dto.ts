@@ -4,13 +4,8 @@ import { IsNotEmpty, IsString, IsNumber } from 'class-validator';
 export class RegisterDto {
   @IsString()
   @IsNotEmpty()
-  @ApiProperty({ example: 'anucha' })
-  username: string;
-  
-  @IsString()
-  @IsNotEmpty()
-  @ApiProperty({ example: '1234' })
-  password: string;
+  @ApiProperty({ example: 'xxxxx' })
+  lineId: string;
 
   @IsString()
   @IsNotEmpty()
