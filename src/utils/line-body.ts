@@ -54,3 +54,7 @@ function getBodySignIn(url, userId, replyToken) {
   };
   return body;
 }
+
+module.exports = {
+  getBodySignIn
+}

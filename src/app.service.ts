@@ -107,7 +107,7 @@ export class AppService {
 
   async lineWebHook(data): Promise<any> {
 
-    console.log(data)
+    console.log(data.events[0]);
     const replyToken = data.events[0].replyToken || 'no replyToken';
     const body = lineBody.getBodySignIn(LineConnection.URL_API, data.events[0].source.userId, replyToken);
     line.sendReplyBodyToLine(replyToken, body);
