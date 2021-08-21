@@ -9,6 +9,7 @@ import { LineNotifyDto } from './dto/line-notify.dto';
 import { LineConnection } from './constants';
 const line = require('./utils/line');
 const lineBody = require('./utils/line-body');
+const request = require('request');
 
 @Injectable()
 export class AppService {
@@ -61,6 +62,76 @@ export class AppService {
       lastName: data.lastName,
       email: data.email
     })
+
+    const body = {
+      to: data.lineId,
+      messages: [
+        {
+          type: 'flex',
+          altText: 'Welcome',
+          contents: {
+            type: 'bubble',
+            body: {
+              type: 'box',
+              layout: 'vertical',
+              contents: [
+                {
+                  type: 'box',
+                  layout: 'horizontal',
+                  contents: [
+                    {
+                      type: 'box',
+                      layout: 'vertical',
+                      contents: [
+                        {
+                          type: 'image',
+                          url: 'https://yt3.ggpht.com/a/AGF-l7_zOh3DStGbUiDILMTVPPdvQ4XzACADFXvhNQ=s900-c-k-c0xffffffff-no-rj-mo',
+                          aspectMode: 'cover',
+                          size: 'full',
+                        },
+                      ],
+                      cornerRadius: '0px',
+                      width: '72px',
+                      height: '72px',
+                    },
+                    {
+                      type: 'box',
+                      layout: 'vertical',
+                      contents: [
+                        {
+                          type: 'text',
+                          text: 'Welcome ' + data.firstName,
+                          size: 'sm',
+                          weight: 'bold',
+                          flex: 1,
+                        },
+                        {
+                          type: 'text',
+                          text: data.lastName,
+                          size: 'sm',
+                        },
+                      ],
+                    },
+                  ],
+                  spacing: 'xl',
+                  paddingAll: '20px',
+                },
+              ],
+              paddingAll: '0px',
+            },
+          },
+        },
+      ],
+    };
+    request({
+      method: `POST`,
+      uri: `${process.env.LINE_API}/push`,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer {${process.env.LINE_TOKEN}}`,
+      },
+      body: JSON.stringify(body),
+    });
 
     return true;
   }
