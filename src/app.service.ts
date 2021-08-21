@@ -55,12 +55,13 @@ export class AppService {
       throw new HttpException('Email\'s already exist.', HttpStatus.CONFLICT);
     }
 
-    firestore.collection("users").add({
+    firestore.collection("users").doc(data.email).set({
       lineId: data.lineId,
       firstName: data.firstName,
       lastName: data.lastName,
       email: data.email
-    });
+    })
+
     return true;
   }
 
@@ -90,17 +91,18 @@ export class AppService {
 
     let firestore = firebase.firestore();
 
-    let users = await firestore.collection("users").where("email", "==", data.email).get();
+    await firestore.collection("users").doc(data.email).get().then(function (docs) {
+      if (!docs.data()) {
+        throw new HttpException('User not found.', HttpStatus.NOT_FOUND);
+      }
+    })
 
-    let userData = users.docs.map((doc) => {
-      let res = doc.data();
-      res.id = doc.id;
-      return res;
-    })[0];
-
-    if (!userData) {
-      throw new HttpException('User not found.', HttpStatus.NOT_FOUND);
-    }
+    await firestore.collection("users").doc(data.email).update({
+      logTimeHours: 8
+    })
+      .then(() => {
+        console.log("Document successfully updated!");
+      });
 
     return true;
   }
@@ -108,11 +110,46 @@ export class AppService {
   async lineWebHook(data): Promise<any> {
 
     console.log(data.events[0]);
+
+    const lineId = data.events[0].source.userId;
     const replyToken = data.events[0].replyToken || 'no replyToken';
-    const body = lineBody.getBodySignIn(LineConnection.URL_API, data.events[0].source.userId, replyToken);
-    line.sendReplyBodyToLine(replyToken, body);
 
-    return true;
+    let firestore = firebase.firestore();
+    let users = await firestore.collection("users").where("lineId", "==", lineId).get();
+    let userData = users.docs.map((doc) => {
+      let res = doc.data();
+      res.id = doc.id;
+      return res;
+    })[0];
+
+    let body;
+
+    if (userData) {
+      if (data.events[0].message.type && data.events[0].message.type === 'text') {
+        const text = data.events[0].message.text || 'no text'
+        switch (text.toUpperCase()) {
+          case 'LOG-TIME':
+
+            if (!userData.logTimeHours) {
+              userData.logTimeHours = 0;
+            }
+
+            body = line.logTimeToday(replyToken, userData.logTimeHours);
+            break;
+          case 'MY-PROFILE':
+            // body = getBodyDailyHealthReport(url, userData.data.token, replyToken);
+            // line.sendReplyBodyToLine(replyToken, body);
+            break;
+
+          default:
+            break;
+        }
+      } else {
+        body = lineBody.getBodySignIn(LineConnection.URL_API, lineId, replyToken);
+      }
+      line.sendReplyBodyToLine(body);
+
+      return true;
+    }
   }
-
 }

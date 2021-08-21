@@ -2,7 +2,7 @@ import { LineConnection } from "src/constants";
 
 const request = require('request')
 
-function sendReplyBodyToLine(replyToken, body) {
+function sendReplyBodyToLine(body) {
   try {
     request({
       method: `POST`,
@@ -35,7 +35,7 @@ function sendTextReplyToLine(replyToken, text) {
       }
     ]
   }
-  sendReplyBodyToLine(replyToken, body)
+  sendReplyBodyToLine(body)
 }
 
 module.exports = {
