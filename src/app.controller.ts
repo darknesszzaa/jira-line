@@ -16,6 +16,18 @@ export class AppController {
     res.sendFile(directory);
   }
 
+  @Get('register/register-success/:lineid/:email/:fname/:lname')
+  async getRegisterSuccess(@Res() res, @Param() param: any): Promise<any> {
+    try {
+      const user = Object.assign(new RegisterDto(), { lineId: param.lineid, email: param.email, firstName: param.fname, lastName: param.lname })
+      await this.appService.createUsers(user);
+      const directory = __dirname + '/views/register-success.html';
+      res.sendFile(directory);
+    } catch (error) {
+      res.status(error.getStatus()).send(error.getResponse());
+    }
+  }
+
   @Get('register-success/:lineid/:email/:fname/:lname')
   async getSuccess(@Res() res, @Param() param: any): Promise<any> {
     try {
