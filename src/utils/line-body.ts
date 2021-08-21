@@ -183,15 +183,10 @@ function profile(replyToken, firstName, lastName) {
                     contents: [
                       {
                         type: 'text',
-                        text: firstName,
+                        text: firstName + '   ' + lastName,
                         size: 'sm',
                         weight: 'bold',
                         flex: 1,
-                      },
-                      {
-                        type: 'text',
-                        text: lastName,
-                        size: 'sm',
                       },
                     ],
                   },
