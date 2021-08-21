@@ -145,6 +145,71 @@ function logTimeToday(replyToken, logTimeHours) {
   return body;
 }
 
+function profile(replyToken, firstName, lastName) {
+  const body = {
+    replyToken: replyToken,
+    messages: [
+      {
+        type: 'flex',
+        altText: 'Welcome',
+        contents: {
+          type: 'bubble',
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              {
+                type: 'box',
+                layout: 'horizontal',
+                contents: [
+                  {
+                    type: 'box',
+                    layout: 'vertical',
+                    contents: [
+                      {
+                        type: 'image',
+                        url: 'https://yt3.ggpht.com/a/AGF-l7_zOh3DStGbUiDILMTVPPdvQ4XzACADFXvhNQ=s900-c-k-c0xffffffff-no-rj-mo',
+                        aspectMode: 'cover',
+                        size: 'full',
+                      },
+                    ],
+                    cornerRadius: '0px',
+                    width: '72px',
+                    height: '72px',
+                  },
+                  {
+                    type: 'box',
+                    layout: 'vertical',
+                    contents: [
+                      {
+                        type: 'text',
+                        text: firstName,
+                        size: 'sm',
+                        weight: 'bold',
+                        flex: 1,
+                      },
+                      {
+                        type: 'text',
+                        text: lastName,
+                        size: 'sm',
+                      },
+                    ],
+                  },
+                ],
+                spacing: 'xl',
+                paddingAll: '20px',
+              },
+            ],
+            paddingAll: '0px',
+          },
+        },
+      },
+    ],
+  };
+
+  return body;
+}
+
 module.exports = {
   getBodySignIn
 }

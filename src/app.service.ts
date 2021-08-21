@@ -210,8 +210,7 @@ export class AppService {
             body = line.logTimeToday(replyToken, userData.logTimeHours);
             break;
           case 'MY-PROFILE':
-            // body = getBodyDailyHealthReport(url, userData.data.token, replyToken);
-            // line.sendReplyBodyToLine(replyToken, body);
+            body = line.profile(replyToken, userData.firstName, userData.lastName );
             break;
 
           default:
