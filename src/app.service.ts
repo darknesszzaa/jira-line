@@ -124,7 +124,8 @@ export class AppService {
       ],
     };
 
-    line.sendReplyBodyToLine(body);
+    line.sendBodyToLine(body);
+
     return true;
   }
 
