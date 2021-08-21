@@ -206,5 +206,7 @@ function profile(replyToken, firstName, lastName) {
 }
 
 module.exports = {
-  getBodySignIn
+  getBodySignIn,
+  logTimeToday,
+  profile
 }
