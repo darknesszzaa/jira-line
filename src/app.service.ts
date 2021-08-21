@@ -10,6 +10,7 @@ import { LineConnection } from './constants';
 const line = require('./utils/line');
 const lineBody = require('./utils/line-body');
 const request = require('request');
+const schedule = require('node-schedule');
 
 @Injectable()
 export class AppService {
@@ -25,6 +26,17 @@ export class AppService {
       measurementId: "G-K2NN4NX8HF"
     };
     firebase.initializeApp(firebaseConfig);
+
+    schedule.scheduleJob('0 18 * * 1-5', async () => {
+      const users = await this.getUsers();
+      for (const user of users) {
+        if (!user.logTimeHours) {
+          user.logTimeHours = 0;
+        }
+        const body = lineBody.getBodyLogTimeToday(user.lineId, user.logTimeHours);
+        line.sendBodyToLine(body);
+      }
+    });
   }
 
   async getUsers(): Promise<any> {
@@ -200,10 +212,10 @@ export class AppService {
               userData.logTimeHours = 0;
             }
 
-            body = lineBody.getBodyLogTimeToday(replyToken, userData.logTimeHours);
+            body = lineBody.getBodyReplyLogTimeToday(replyToken, userData.logTimeHours);
             break;
           case 'MY-PROFILE':
-            body = lineBody.getBodyProfile(replyToken, userData.firstName, userData.lastName );
+            body = lineBody.getBodyProfile(replyToken, userData.firstName, userData.lastName);
             break;
 
           default:

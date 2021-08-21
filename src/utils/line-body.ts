@@ -59,10 +59,101 @@ function convertTZ(date, tzString) {
   return new Date((typeof date === "string" ? new Date(date) : date).toLocaleString("en-US", {timeZone: tzString}));   
 }
 
-function getBodyLogTimeToday(replyToken, logTimeHours) {
+function getBodyReplyLogTimeToday(replyToken, logTimeHours) {
   const convertedDate = convertTZ(new Date(), "Asia/Bangkok") 
   const body = {
     replyToken: replyToken,
+    messages: [{
+      type: 'flex',
+      altText: 'LogTime',
+      contents: {
+        type: "bubble",
+        hero: {
+          type: "image",
+          url: "https://lh3.googleusercontent.com/proxy/p9I4GYIwp88S2RlhhRc35zIuPpuDeYNrkl9oPeRUHrgWw7IMtt0UGJHDXY1et6r6BJlB3fz83y9pC7wGBloZdYGEfwuUBCm5Xsa2nFU8kE5i_WHEelQcgNU3Kd2bwStmiDBImb4cXtfccWLtvU6J_DRiPK8Eo7YGWAmRTRK-",
+          size: "full",
+          aspectMode: "cover",
+          action: {
+            type: "uri",
+            uri: "http://linecorp.com/"
+          },
+          aspectRatio: "20:13"
+        },
+        body: {
+          type: "box",
+          layout: "vertical",
+          contents: [
+            {
+              type: "text",
+              text: "Log Time Today",
+              weight: "bold",
+              size: "xl"
+            },
+            {
+              type: "box",
+              layout: "vertical",
+              margin: "lg",
+              spacing: "sm",
+              contents: [
+                {
+                  type: "box",
+                  layout: "baseline",
+                  spacing: "sm",
+                  contents: [
+                    {
+                      type: "text",
+                      text: "Log TIme",
+                      size: "md",
+                      flex: 4,
+                      weight: "regular"
+                    },
+                    {
+                      type: "text",
+                      text: logTimeHours + " Hr.",
+                      wrap: true,
+                      size: "lg",
+                      flex: 5,
+                      color: "#FF0000"
+                    }
+                  ]
+                },
+                {
+                  type: "box",
+                  layout: "baseline",
+                  spacing: "sm",
+                  contents: [
+                    {
+                      type: "text",
+                      text: "Check Time",
+                      size: "md",
+                      flex: 4
+                    },
+                    {
+                      type: "text",
+                      text: convertedDate.toLocaleString(),
+                      wrap: true,
+                      size: "md",
+                      flex: 5
+                    }
+                  ],
+                  paddingTop: "xl"
+                }
+              ],
+              paddingTop: "xl"
+            }
+          ]
+        }
+      }
+    }]
+  }
+
+  return body;
+}
+
+function getBodyLogTimeToday(lineId, logTimeHours) {
+  const convertedDate = convertTZ(new Date(), "Asia/Bangkok") 
+  const body = {
+    to: lineId,
     messages: [{
       type: 'flex',
       altText: 'LogTime',
@@ -212,6 +303,7 @@ function getBodyProfile(replyToken, firstName, lastName) {
 
 module.exports = {
   getBodySignIn,
+  getBodyReplyLogTimeToday,
   getBodyLogTimeToday,
   getBodyProfile
 }
