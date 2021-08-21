@@ -124,6 +124,8 @@ export class AppService {
 
     let body;
 
+    console.log(userData)
+
     if (userData) {
       if (data.events[0].message.type && data.events[0].message.type === 'text') {
         const text = data.events[0].message.text || 'no text'
@@ -144,12 +146,13 @@ export class AppService {
           default:
             break;
         }
-      } else {
-        body = lineBody.getBodySignIn(LineConnection.URL_API, lineId, replyToken);
       }
-      line.sendReplyBodyToLine(body);
-
-      return true;
+    } else {
+      body = lineBody.getBodySignIn(LineConnection.URL_API, lineId, replyToken);
     }
+    line.sendReplyBodyToLine(body);
+
+    return true;
+
   }
 }
