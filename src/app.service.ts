@@ -100,14 +100,14 @@ export class AppService {
                       contents: [
                         {
                           type: 'text',
-                          text: 'Welcome ' + data.firstName,
+                          text: 'Welcome',
                           size: 'sm',
                           weight: 'bold',
                           flex: 1,
                         },
                         {
                           type: 'text',
-                          text: data.lastName,
+                          text: data.firstName + '   ' + data.lastName,
                           size: 'sm',
                         },
                       ],
