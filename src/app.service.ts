@@ -123,16 +123,8 @@ export class AppService {
         },
       ],
     };
-    request({
-      method: `POST`,
-      uri: `${process.env.LINE_API}/push`,
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer {${process.env.LINE_TOKEN}}`,
-      },
-      body: JSON.stringify(body),
-    });
 
+    line.sendReplyBodyToLine(body);
     return true;
   }
 
