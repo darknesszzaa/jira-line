@@ -55,7 +55,12 @@ function getBodySignIn(url, userId, replyToken) {
   return body;
 }
 
+function convertTZ(date, tzString) {
+  return new Date((typeof date === "string" ? new Date(date) : date).toLocaleString("en-US", {timeZone: tzString}));   
+}
+
 function getBodyLogTimeToday(replyToken, logTimeHours) {
+  const convertedDate = convertTZ(new Date(), "Asia/Bangkok") 
   const body = {
     replyToken: replyToken,
     messages: [{
@@ -119,13 +124,13 @@ function getBodyLogTimeToday(replyToken, logTimeHours) {
                   contents: [
                     {
                       type: "text",
-                      text: "Update Time",
+                      text: "Check Time",
                       size: "md",
                       flex: 4
                     },
                     {
                       type: "text",
-                      text: new Date(),
+                      text: convertedDate.toLocaleString(),
                       wrap: true,
                       size: "md",
                       flex: 5

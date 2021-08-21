@@ -8,7 +8,8 @@ import { UsersResponseDto } from './dto/users.response.dto';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) { }
+  constructor(private readonly appService: AppService) { 
+  }
 
   @Get('register')
   getRegister(@Res() res): any {
