@@ -200,10 +200,10 @@ export class AppService {
               userData.logTimeHours = 0;
             }
 
-            body = line.logTimeToday(replyToken, userData.logTimeHours);
+            body = lineBody.getBodyLogTimeToday(replyToken, userData.logTimeHours);
             break;
           case 'MY-PROFILE':
-            body = line.profile(replyToken, userData.firstName, userData.lastName );
+            body = lineBody.getBodyProfile(replyToken, userData.firstName, userData.lastName );
             break;
 
           default:

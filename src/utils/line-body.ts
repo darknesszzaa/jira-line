@@ -55,7 +55,7 @@ function getBodySignIn(url, userId, replyToken) {
   return body;
 }
 
-function logTimeToday(replyToken, logTimeHours) {
+function getBodyLogTimeToday(replyToken, logTimeHours) {
   const body = {
     replyToken: replyToken,
     messages: [{
@@ -145,7 +145,7 @@ function logTimeToday(replyToken, logTimeHours) {
   return body;
 }
 
-function profile(replyToken, firstName, lastName) {
+function getBodyProfile(replyToken, firstName, lastName) {
   const body = {
     replyToken: replyToken,
     messages: [
@@ -207,6 +207,6 @@ function profile(replyToken, firstName, lastName) {
 
 module.exports = {
   getBodySignIn,
-  logTimeToday,
-  profile
+  getBodyLogTimeToday,
+  getBodyProfile
 }
