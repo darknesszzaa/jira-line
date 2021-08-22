@@ -169,7 +169,7 @@ export class AppService {
 
     await firestore.collection("users").doc(data.email).get().then(function (docs) {
       if (!docs.data()) {
-        throw new HttpException('User not found.', HttpStatus.NOT_FOUND);
+        throw new HttpException('User not found.', HttpStatus.NO_CONTENT);
       }
     })
 
