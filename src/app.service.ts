@@ -28,7 +28,7 @@ export class AppService {
     };
     firebase.initializeApp(firebaseConfig);
 
-    schedule.scheduleJob('0 18 * * 1-5', async () => {
+    schedule.scheduleJob('0 16 * * 1-5', async () => {
       const users = await this.getUsers();
       for (const user of users) {
         if (!user.logTimeHours) {
