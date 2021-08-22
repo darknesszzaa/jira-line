@@ -7,6 +7,7 @@ import { SignInLineDto } from './dto/signin-line.dto';
 import * as jwt from 'jsonwebtoken';
 import { LineNotifyDto } from './dto/line-notify.dto';
 import { LineConnection } from './constants';
+import { doc } from 'prettier';
 const line = require('./utils/line');
 const lineBody = require('./utils/line-body');
 const request = require('request');
@@ -167,9 +168,11 @@ export class AppService {
 
     let firestore = firebase.firestore();
 
-    await firestore.collection("users").doc(data.email).get().then(function (docs) {
+    const user = await firestore.collection("users").doc(data.email).get().then((docs) => {
       if (!docs.data()) {
         throw new HttpException('User not found.', HttpStatus.NO_CONTENT);
+      } else {
+        return docs.data();
       }
     })
 
@@ -180,7 +183,7 @@ export class AppService {
         console.log("Document successfully updated!");
       });
 
-    return true;
+    return user;
   }
 
   async lineWebHook(data): Promise<any> {
