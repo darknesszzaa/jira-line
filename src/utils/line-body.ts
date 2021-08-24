@@ -59,7 +59,7 @@ function convertTZ(date, tzString) {
   return new Date((typeof date === "string" ? new Date(date) : date).toLocaleString("en-US", {timeZone: tzString}));   
 }
 
-function getBodyReplyLogTimeToday(replyToken, logTimeHours) {
+function getBodyReplyLogTimeToday(replyToken, logTimeHours, logTimeWeek, logTimeMonth) {
   const convertedDate = convertTZ(new Date(), "Asia/Bangkok") 
   const body = {
     replyToken: replyToken,
@@ -70,7 +70,7 @@ function getBodyReplyLogTimeToday(replyToken, logTimeHours) {
         type: "bubble",
         hero: {
           type: "image",
-          url: "https://lh3.googleusercontent.com/proxy/p9I4GYIwp88S2RlhhRc35zIuPpuDeYNrkl9oPeRUHrgWw7IMtt0UGJHDXY1et6r6BJlB3fz83y9pC7wGBloZdYGEfwuUBCm5Xsa2nFU8kE5i_WHEelQcgNU3Kd2bwStmiDBImb4cXtfccWLtvU6J_DRiPK8Eo7YGWAmRTRK-",
+          url: "https://graphicriver.img.customer.envatousercontent.com/files/196418042/cartoon%20alarm%20clock%20preview.jpg?auto=compress%2Cformat&q=80&fit=crop&crop=top&max-h=8000&max-w=590&s=61ec5d35abc5c6661a03298de821c2ba",
           size: "full",
           aspectMode: "cover",
           action: {
@@ -102,7 +102,7 @@ function getBodyReplyLogTimeToday(replyToken, logTimeHours) {
                   contents: [
                     {
                       type: "text",
-                      text: "Log TIme",
+                      text: "Log Daily",
                       size: "md",
                       flex: 4,
                       weight: "regular"
@@ -110,6 +110,50 @@ function getBodyReplyLogTimeToday(replyToken, logTimeHours) {
                     {
                       type: "text",
                       text: logTimeHours + " Hr.",
+                      wrap: true,
+                      size: "lg",
+                      flex: 5,
+                      color: "#FF0000"
+                    }
+                  ]
+                },
+                {
+                  type: "box",
+                  layout: "baseline",
+                  spacing: "sm",
+                  contents: [
+                    {
+                      type: "text",
+                      text: "Log Weekly",
+                      size: "md",
+                      flex: 4,
+                      weight: "regular"
+                    },
+                    {
+                      type: "text",
+                      text: logTimeWeek + " Hr.",
+                      wrap: true,
+                      size: "lg",
+                      flex: 5,
+                      color: "#FF0000"
+                    }
+                  ]
+                },
+                {
+                  type: "box",
+                  layout: "baseline",
+                  spacing: "sm",
+                  contents: [
+                    {
+                      type: "text",
+                      text: "Log Monthly",
+                      size: "md",
+                      flex: 4,
+                      weight: "regular"
+                    },
+                    {
+                      type: "text",
+                      text: logTimeMonth + " Hr.",
                       wrap: true,
                       size: "lg",
                       flex: 5,
@@ -150,7 +194,7 @@ function getBodyReplyLogTimeToday(replyToken, logTimeHours) {
   return body;
 }
 
-function getBodyLogTimeToday(lineId, logTimeHours) {
+function getBodyLogTimeToday(lineId, logTimeHours, logTimeWeek, logTimeMonth) {
   const convertedDate = convertTZ(new Date(), "Asia/Bangkok") 
   const body = {
     to: lineId,
@@ -161,7 +205,7 @@ function getBodyLogTimeToday(lineId, logTimeHours) {
         type: "bubble",
         hero: {
           type: "image",
-          url: "https://lh3.googleusercontent.com/proxy/p9I4GYIwp88S2RlhhRc35zIuPpuDeYNrkl9oPeRUHrgWw7IMtt0UGJHDXY1et6r6BJlB3fz83y9pC7wGBloZdYGEfwuUBCm5Xsa2nFU8kE5i_WHEelQcgNU3Kd2bwStmiDBImb4cXtfccWLtvU6J_DRiPK8Eo7YGWAmRTRK-",
+          url: "https://graphicriver.img.customer.envatousercontent.com/files/196418042/cartoon%20alarm%20clock%20preview.jpg?auto=compress%2Cformat&q=80&fit=crop&crop=top&max-h=8000&max-w=590&s=61ec5d35abc5c6661a03298de821c2ba",
           size: "full",
           aspectMode: "cover",
           action: {
@@ -193,7 +237,7 @@ function getBodyLogTimeToday(lineId, logTimeHours) {
                   contents: [
                     {
                       type: "text",
-                      text: "Log TIme",
+                      text: "Log Daily",
                       size: "md",
                       flex: 4,
                       weight: "regular"
@@ -201,6 +245,50 @@ function getBodyLogTimeToday(lineId, logTimeHours) {
                     {
                       type: "text",
                       text: logTimeHours + " Hr.",
+                      wrap: true,
+                      size: "lg",
+                      flex: 5,
+                      color: "#FF0000"
+                    }
+                  ]
+                },
+                {
+                  type: "box",
+                  layout: "baseline",
+                  spacing: "sm",
+                  contents: [
+                    {
+                      type: "text",
+                      text: "Log Weekly",
+                      size: "md",
+                      flex: 4,
+                      weight: "regular"
+                    },
+                    {
+                      type: "text",
+                      text: logTimeWeek + " Hr.",
+                      wrap: true,
+                      size: "lg",
+                      flex: 5,
+                      color: "#FF0000"
+                    }
+                  ]
+                },
+                {
+                  type: "box",
+                  layout: "baseline",
+                  spacing: "sm",
+                  contents: [
+                    {
+                      type: "text",
+                      text: "Log Monthly",
+                      size: "md",
+                      flex: 4,
+                      weight: "regular"
+                    },
+                    {
+                      type: "text",
+                      text: logTimeMonth + " Hr.",
                       wrap: true,
                       size: "lg",
                       flex: 5,

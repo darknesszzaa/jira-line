@@ -28,16 +28,16 @@ export class AppService {
     };
     firebase.initializeApp(firebaseConfig);
 
-    schedule.scheduleJob('0 16 * * 1-5', async () => {
-      const users = await this.getUsers();
-      for (const user of users) {
-        if (!user.logTimeHours) {
-          user.logTimeHours = 0;
-        }
-        const body = lineBody.getBodyLogTimeToday(user.lineId, user.logTimeHours);
-        line.sendBodyToLine(body);
-      }
-    });
+  //   schedule.scheduleJob('0 16 * * 1-5', async () => {
+  //     const users = await this.getUsers();
+  //     for (const user of users) {
+  //       if (!user.logTimeHours) {
+  //         user.logTimeHours = 0;
+  //       }
+  //       const body = lineBody.getBodyLogTimeToday(user.lineId, user.logTimeHours);
+  //       line.sendBodyToLine(body);
+  //     }
+  //   });
   }
 
   async getUsers(): Promise<any> {
@@ -177,11 +177,18 @@ export class AppService {
     })
 
     await firestore.collection("users").doc(data.email).update({
-      logTimeHours: data.logTimeHours
+      logTimeHours: data.logTimeHours,
+      logTimeWeek: data.logTimeWeek,
+      logTimeMonth: data.logTimeMonth
     })
       .then(() => {
         console.log("Document successfully updated!");
       });
+
+    if (data.isSendLineNoti) {
+      const body = lineBody.getBodyLogTimeToday(user.lineId, data.logTimeHours, data.logTimeWeek, data.logTimeMonth);
+      line.sendBodyToLine(body);
+    }
 
     return user;
   }
@@ -214,8 +221,14 @@ export class AppService {
             if (!userData.logTimeHours) {
               userData.logTimeHours = 0;
             }
+            if (!userData.logTimeWeek) {
+              userData.logTimeWeek = 0;
+            }
+            if (!userData.logTimeMonth) {
+              userData.logTimeMonth = 0;
+            }
 
-            body = lineBody.getBodyReplyLogTimeToday(replyToken, userData.logTimeHours);
+            body = lineBody.getBodyReplyLogTimeToday(replyToken, userData.logTimeHours, userData.logTimeWeek, userData.logTimeMonth);
             break;
           case 'MY-PROFILE':
             body = lineBody.getBodyProfile(replyToken, userData.firstName, userData.lastName);
