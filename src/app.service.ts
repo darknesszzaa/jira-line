@@ -69,7 +69,7 @@ export class AppService {
       throw new HttpException('Email\'s already exist.', HttpStatus.CONFLICT);
     }
 
-    firestore.collection("users").doc(data.email).set({
+    firestore.collection("users").doc(data.email.toLowerCase()).set({
       lineId: data.lineId,
       firstName: data.firstName,
       lastName: data.lastName,
