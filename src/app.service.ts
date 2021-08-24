@@ -28,16 +28,16 @@ export class AppService {
     };
     firebase.initializeApp(firebaseConfig);
 
-  //   schedule.scheduleJob('0 16 * * 1-5', async () => {
-  //     const users = await this.getUsers();
-  //     for (const user of users) {
-  //       if (!user.logTimeHours) {
-  //         user.logTimeHours = 0;
-  //       }
-  //       const body = lineBody.getBodyLogTimeToday(user.lineId, user.logTimeHours);
-  //       line.sendBodyToLine(body);
-  //     }
-  //   });
+    //   schedule.scheduleJob('0 16 * * 1-5', async () => {
+    //     const users = await this.getUsers();
+    //     for (const user of users) {
+    //       if (!user.logTimeHours) {
+    //         user.logTimeHours = 0;
+    //       }
+    //       const body = lineBody.getBodyLogTimeToday(user.lineId, user.logTimeHours);
+    //       line.sendBodyToLine(body);
+    //     }
+    //   });
   }
 
   async getUsers(): Promise<any> {
@@ -166,6 +166,7 @@ export class AppService {
 
   async lineNotify(data: LineNotifyDto): Promise<any> {
 
+    console.log(data)
     let firestore = firebase.firestore();
 
     const user = await firestore.collection("users").doc(data.email).get().then((docs) => {
@@ -185,10 +186,10 @@ export class AppService {
         console.log("Document successfully updated!");
       });
 
-    if (data.isSendLineNoti) {
-      const body = lineBody.getBodyLogTimeToday(user.lineId, data.logTimeHours, data.logTimeWeek, data.logTimeMonth);
-      line.sendBodyToLine(body);
-    }
+    // if (data.isSendLineNoti) {
+    //   const body = lineBody.getBodyLogTimeToday(user.lineId, data.logTimeHours, data.logTimeWeek, data.logTimeMonth);
+    //   line.sendBodyToLine(body);
+    // }
 
     return user;
   }
