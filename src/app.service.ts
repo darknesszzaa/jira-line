@@ -186,10 +186,10 @@ export class AppService {
         console.log("Document successfully updated!");
       });
 
-    // if (data.isSendLineNoti) {
-    //   const body = lineBody.getBodyLogTimeToday(user.lineId, data.logTimeHours, data.logTimeWeek, data.logTimeMonth);
-    //   line.sendBodyToLine(body);
-    // }
+    if (data.isSendLineNoti) {
+      const body = lineBody.getBodyLogTimeToday(user.lineId, data.logTimeHours, data.logTimeWeek, data.logTimeMonth);
+      line.sendBodyToLine(body);
+    }
 
     return user;
   }
