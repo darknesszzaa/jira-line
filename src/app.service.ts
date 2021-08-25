@@ -167,31 +167,31 @@ export class AppService {
   async lineNotify(data: LineNotifyDto): Promise<any> {
 
     console.log(data)
-    let firestore = firebase.firestore();
+    // let firestore = firebase.firestore();
 
-    const user = await firestore.collection("users").doc(data.email).get().then((docs) => {
-      if (!docs.data()) {
-        throw new HttpException('User not found.', HttpStatus.NO_CONTENT);
-      } else {
-        return docs.data();
-      }
-    })
+    // const user = await firestore.collection("users").doc(data.email).get().then((docs) => {
+    //   if (!docs.data()) {
+    //     throw new HttpException('User not found.', HttpStatus.NO_CONTENT);
+    //   } else {
+    //     return docs.data();
+    //   }
+    // })
 
-    await firestore.collection("users").doc(data.email).update({
-      logTimeHours: data.logTimeHours,
-      logTimeWeek: data.logTimeWeek,
-      logTimeMonth: data.logTimeMonth
-    })
-      .then(() => {
-        console.log("Document successfully updated!");
-      });
+    // await firestore.collection("users").doc(data.email).update({
+    //   logTimeHours: data.logTimeHours,
+    //   logTimeWeek: data.logTimeWeek,
+    //   logTimeMonth: data.logTimeMonth
+    // })
+    //   .then(() => {
+    //     console.log("Document successfully updated!");
+    //   });
 
-    if (data.isSendLineNoti) {
-      const body = lineBody.getBodyLogTimeToday(user.lineId, data.logTimeHours, data.logTimeWeek, data.logTimeMonth);
-      line.sendBodyToLine(body);
-    }
+    // if (data.isSendLineNoti) {
+    //   const body = lineBody.getBodyLogTimeToday(user.lineId, data.logTimeHours, data.logTimeWeek, data.logTimeMonth);
+    //   line.sendBodyToLine(body);
+    // }
 
-    return user;
+    return data;
   }
 
   async lineWebHook(data): Promise<any> {
