@@ -187,7 +187,7 @@ export class AppService {
       });
 
     if (data.isSendLineNoti) {
-      const body = lineBody.getBodyLogTimeToday(user.lineId, data.logTimeHours, data.logTimeWeek, data.logTimeMonth);
+      const body = lineBody.getBodyLogTimeToday(user.lineId, Number(data.logTimeHours).toFixed(1), Number(data.logTimeWeek).toFixed(1), Number(data.logTimeMonth).toFixed(1));
       line.sendBodyToLine(body);
     }
 
@@ -229,7 +229,7 @@ export class AppService {
               userData.logTimeMonth = 0;
             }
 
-            body = lineBody.getBodyReplyLogTimeToday(replyToken, userData.logTimeHours, userData.logTimeWeek, userData.logTimeMonth);
+            body = lineBody.getBodyReplyLogTimeToday(replyToken, Number(userData.logTimeHours).toFixed(1), Number(userData.logTimeWeek).toFixed(1), Number(userData.logTimeMonth).toFixed(1));
             break;
           case 'MY-PROFILE':
             body = lineBody.getBodyProfile(replyToken, userData.firstName, userData.lastName);
